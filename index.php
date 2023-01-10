@@ -40,10 +40,6 @@ include_once "./inc/navbar.php";
         //     ],
         // ];
 
-        $db_conn = mysqli_connect('localhost', 'root', '', 'catalog');
-        $sql = 'SELECT * FROM products';
-        $result = mysqli_query($db_conn, $sql);
-
         $recommended = ['Tennis Edge', 'Weight It'];
 
         $fn_icon = function ($name) {
@@ -51,6 +47,9 @@ include_once "./inc/navbar.php";
             return in_array($name, $recommended) ? "bi-star-fill" : "bi-star";
         };
 
+        $db_conn = mysqli_connect('localhost', 'root', '', 'catalog');
+        $sql = 'SELECT * FROM products';
+        $result = mysqli_query($db_conn, $sql);
 
         if ($result && mysqli_num_rows($result) > 0) {
             while ($item = mysqli_fetch_assoc($result)) {
@@ -83,24 +82,29 @@ include_once "./inc/navbar.php";
     </h5>
 
     <?php
-    $offers = [
-        [
-            'title' => 'Black Friday Sale',
-            'description' => 'buy now before the offer expires',
-            'code' => 'BF015'
-        ],
-        [
-            'title' => '2 in the price of 1',
-            'description' => 'for club members only!',
-            'code' => 'TO211'
-        ]
-    ];
+    // $offers = [
+    //     [
+    //         'title' => 'Black Friday Sale',
+    //         'description' => 'buy now before the offer expires',
+    //         'code' => 'BF015'
+    //     ],
+    //     [
+    //         'title' => '2 in the price of 1',
+    //         'description' => 'for club members only!',
+    //         'code' => 'TO211'
+    //     ]
+    // ];
     ?>
 
     <div class="row mb-5 pb-3">
         <?php
-        foreach ($offers as $offer) {
-            $card = <<<CARD
+
+        $sql = 'SELECT * FROM offers';
+        $result = mysqli_query($db_conn, $sql);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($offer = mysqli_fetch_assoc($result)) {
+                $card = <<<CARD
                 <div class="col-sm-12 col-md-4 mb-3">
                     <div class="card">
                         <div class="card-body text-dark">
@@ -112,7 +116,8 @@ include_once "./inc/navbar.php";
                 </div>
             CARD;
 
-            echo $card;
+                echo $card;
+            }
         }
         ?>
     </div>
