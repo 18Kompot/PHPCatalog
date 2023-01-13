@@ -1,4 +1,5 @@
 <?php
+
 $db_conn = mysqli_connect(DB_URL, DB_USER, DB_PASS, DB_NAME);
 
 function runQuery($sql)
@@ -12,5 +13,6 @@ function runQuery($sql)
             $data[] = $row;
         }
     }
+
     return $data;
 }

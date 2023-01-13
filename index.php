@@ -25,30 +25,28 @@ include_once "./inc/navbar.php";
             return in_array($name, $recommended) ? "bi-star-fill" : "bi-star";
         };
 
-        $sql = 'SELECT * FROM products';
+        $sql = "SELECT * FROM products";
         $result = runQuery($sql);
 
-        // foreach ($item as $result) {
-        //     foreach ($item as $row) {
-        //         $col = <<<COL
-        //             <div class="col-sm-12 col-md-4 mb-3">
-        //                 <div class="card">
-        //                     <img src="{$item['image']}" class="card-img-top" alt="{$item['name']}">
-        //                     <div class="card-body text-dark">
-        //                         <h5 class="card-title">{$item['name']}</h5>
-        //                         <p class="card-text">{$fn_price($item['price'])}</p> 
-        //                         <p class="card-text">{$item['description']}</p>
-        //                         <p class="card-text">rating: {$item['rating']}</p>
-        //                         <p class="card-text"><i class="{$fn_icon($item['name'])}"></i></p>
-        //                         <a href="product.php?prod={$item['name']}" class="btn btn-primary">View Product</a>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         COL;
+        foreach ($result as $item) {
+            $col = <<<COL
+                <div class="col-sm-12 col-md-4 mb-3">
+                    <div class="card">
+                        <img src="{$item['image']}" class="card-img-top" alt="{$item['name']}">
+                        <div class="card-body text-dark">
+                            <h5 class="card-title">{$item['name']}</h5>
+                            <p class="card-text">{$fn_price($item['price'])}</p> 
+                            <p class="card-text">{$item['description']}</p>
+                            <p class="card-text">rating: {$item['rating']}</p>
+                            <p class="card-text"><i class="{$fn_icon($item['name'])}"></i></p>
+                            <a href="product.php?prod={$item['name']}" class="btn btn-primary">View Product</a>
+                        </div>
+                    </div>
+                </div>
+            COL;
 
-        //         echo $col;
-        //     }
-        // }
+            echo $col;
+        }
         ?>
     </div>
 
@@ -58,30 +56,13 @@ include_once "./inc/navbar.php";
         Our Special Offers for <?= date('d/m/Y', $time) ?>
     </h5>
 
-    <?php
-    // $offers = [
-    //     [
-    //         'title' => 'Black Friday Sale',
-    //         'description' => 'buy now before the offer expires',
-    //         'code' => 'BF015'
-    //     ],
-    //     [
-    //         'title' => '2 in the price of 1',
-    //         'description' => 'for club members only!',
-    //         'code' => 'TO211'
-    //     ]
-    // ];
-    ?>
-
     <div class="row mb-5 pb-3">
         <?php
+        $sql = "SELECT * FROM offers";
+        $result = runQuery($sql);
 
-        $sql = 'SELECT * FROM offers';
-        $result = mysqli_query($db_conn, $sql);
-
-        if ($result && mysqli_num_rows($result) > 0) {
-            while ($offer = mysqli_fetch_assoc($result)) {
-                $card = <<<CARD
+        foreach ($result as $offer) {
+            $card = <<<CARD
                 <div class="col-sm-12 col-md-4 mb-3">
                     <div class="card">
                         <div class="card-body text-dark">
@@ -93,8 +74,7 @@ include_once "./inc/navbar.php";
                 </div>
             CARD;
 
-                echo $card;
-            }
+            echo $card;
         }
         ?>
     </div>
