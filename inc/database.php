@@ -1,6 +1,6 @@
 <?php
 
-$db_conn = mysqli_connect(DB_URL, DB_USER, DB_PASS, DB_NAME);
+$db_conn = mysqli_connect(DB_URL, DB_USER, DB_PWD, DB_NAME);
 
 function runQuery($sql)
 {
